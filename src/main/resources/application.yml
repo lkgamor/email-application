@@ -1,0 +1,18 @@
+server:
+  port: 7000
+spring:
+  mail:
+    host: smtp.gmail.com
+    password: xxxxxxxxxx
+    username: xxxxxx@gmail.com
+    port: 587
+    sender: no-reply@louis-voting.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+    test-connection: true
