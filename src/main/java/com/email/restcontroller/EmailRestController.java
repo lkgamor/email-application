@@ -25,7 +25,7 @@ public class EmailRestController {
 	@PostMapping("/send")
 	public ResponseEntity<EmailPayload> receiveEmailRequest(@Valid @RequestBody EmailPayload payload) throws MessagingException {
 		
-		emailService.sendEmailRequest(payload);
+		emailService.processEmail(payload);
 		
 		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
