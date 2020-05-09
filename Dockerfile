@@ -2,7 +2,7 @@
 FROM maven:3.6-jdk-11 AS maven-dependencies
 
 #Copy project pom file to working directory
-COPY./pom.xml .
+COPY ./pom.xml .
 
 #Build and cache all dependencies
 RUN mvn dependency:go-offline -B
