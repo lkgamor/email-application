@@ -1,4 +1,4 @@
-package com.email.model;
+package com.louisga.email.model;
 
 import java.util.List;
 

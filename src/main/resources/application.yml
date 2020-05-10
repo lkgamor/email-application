@@ -3,10 +3,10 @@ server:
 spring:
   mail:
     host: smtp.gmail.com
-    password: xxxxxxxxxx
-    username: xxxxx@gmail.com
+    password: <password>
+    username: <email.address>
     port: 587
-    sender: no-reply@xxxxxx.com
+    sender: <email.address>
     properties:
       mail:
         smtp:

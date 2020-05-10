@@ -1,4 +1,4 @@
-package com.email.service;
+package com.louisga.email.service;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.email.model.EmailPayload;
+import com.louisga.email.model.EmailPayload;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,16 +33,16 @@ public class EmailService {
 	
 	private final JavaMailSender javaMailSender;
 	private final TemplateEngine templateEngine;
-	private final static String EMAIL_BODY_KEY = "body";
-	private final static String EMAIL_DATETIME_KEY = "dateTime";
+	private final static String KEY_EMAIL_BODY = "body";
+	private final static String KEY_EMAIL_DATETIME = "dateTime";
 	private final static String EMAI_TEMPLATE_FILE = "fragments/email.html";
 	
 	@Async
 	public void processEmail(@Valid EmailPayload payload) throws MessagingException {
 		
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put(EMAIL_BODY_KEY, payload.getBody());
-		model.put(EMAIL_DATETIME_KEY, payload.getDateTime());
+		model.put(KEY_EMAIL_BODY, payload.getBody());
+		model.put(KEY_EMAIL_DATETIME, payload.getDateTime());
 		
 		Context context = new Context(LocaleContextHolder.getLocale());
 		context.setVariables(model);
@@ -66,10 +66,10 @@ public class EmailService {
 			helper.setTo(recipientAddress);
 			try {
 				javaMailSender.send(mimeMessage);
-				log.info("SUCCESFULLY SENT EMAIL TO ==>> " + recipientAddress);
+				log.info("SUCCESFULLY SENT EMAIL TO ==>> {} ", recipientAddress);
 			} catch (MailException e) {
-				log.info("FAILED TO SEND EMAIL TO ==>> " + recipientAddress);
-				log.info("REASON ==>> " + e.getMessage());
+				log.info("FAILED TO SEND EMAIL TO ==>> {}", recipientAddress);
+				log.info("REASON ==>> {} ", e.getMessage());
 			}
 		}
 	}

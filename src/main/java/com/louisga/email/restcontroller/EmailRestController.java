@@ -1,4 +1,4 @@
-package com.email.restcontroller;
+package com.louisga.email.restcontroller;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.email.model.EmailPayload;
-import com.email.service.EmailService;
+import com.louisga.email.model.EmailPayload;
+import com.louisga.email.service.EmailService;
 
 import lombok.RequiredArgsConstructor;
 
