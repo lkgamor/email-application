@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -20,7 +21,9 @@ import org.thymeleaf.context.Context;
 import com.email.model.EmailPayload;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmailService {
@@ -61,7 +64,13 @@ public class EmailService {
 		
 		for(String recipientAddress : payload.getTo()) {
 			helper.setTo(recipientAddress);
-			javaMailSender.send(mimeMessage);
+			try {
+				javaMailSender.send(mimeMessage);
+				log.info("SUCCESFULLY SENT EMAIL TO ==>> " + recipientAddress);
+			} catch (MailException e) {
+				log.info("FAILED TO SEND EMAIL TO ==>> " + recipientAddress);
+				log.info("REASON ==>> " + e.getMessage());
+			}
 		}
 	}
 
