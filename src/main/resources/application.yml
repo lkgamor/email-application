@@ -6,7 +6,7 @@ spring:
     password: <password>
     username: <email.address>
     port: 587
-    sender: <email.address>
+    sender: <reply-to.email.address>
     properties:
       mail:
         smtp:
