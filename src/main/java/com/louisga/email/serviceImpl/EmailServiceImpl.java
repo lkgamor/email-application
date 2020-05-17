@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -21,10 +20,16 @@ import org.thymeleaf.context.Context;
 
 import com.louisga.email.model.EmailPayload;
 import com.louisga.email.service.EmailService;
+import com.louisga.email.utils.AppConstants;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 
+ * @author LouisGa
+ *
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -35,9 +40,6 @@ public class EmailServiceImpl implements EmailService {
 	
 	private final JavaMailSender javaMailSender;
 	private final TemplateEngine templateEngine;
-	private final static String KEY_EMAIL_BODY = "body";
-	private final static String KEY_EMAIL_DATETIME = "dateTime";
-	private final static String EMAI_TEMPLATE_FILE = "fragments/email.html";
 
 	@Override
 	public List<EmailPayload> getEmails() {
@@ -53,16 +55,16 @@ public class EmailServiceImpl implements EmailService {
 	
 	@Async
 	@Override
-	public void processEmail(@Valid EmailPayload payload) throws MessagingException {
+	public void processEmail(EmailPayload payload) throws MessagingException {
 	
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put(KEY_EMAIL_BODY, payload.getBody());
-		model.put(KEY_EMAIL_DATETIME, payload.getDateTime());
+		model.put(AppConstants.KEY_EMAIL_BODY, payload.getBody());
+		model.put(AppConstants.KEY_EMAIL_DATETIME, payload.getDateTime());
 	
 		Context context = new Context(LocaleContextHolder.getLocale());
 		context.setVariables(model);
 	
-		String mailBody = this.templateEngine.process(EMAI_TEMPLATE_FILE, context);
+		String mailBody = this.templateEngine.process(AppConstants.EMAI_TEMPLATE_FILE, context);
 		sendEmail(payload, mailBody);		
 	}
 	
@@ -80,10 +82,10 @@ public class EmailServiceImpl implements EmailService {
 			helper.setTo(recipientAddress);
 			try {
 				javaMailSender.send(mimeMessage);
-				log.info("SUCCESFULLY SENT EMAIL TO ==>> {} ", recipientAddress);
+				log.info(AppConstants.EMAIL_SENT_SUCCESS_LOG, recipientAddress);
 			} catch (MailException e) {
-				log.info("FAILED TO SEND EMAIL TO ==>> {}", recipientAddress);
-				log.info("REASON ==>> {} ", e.getMessage());
+				log.info(AppConstants.EMAIL_SENT_FAILURE_LOG, recipientAddress);
+				log.info(AppConstants.EMAIL_SENT_FAILURE_REASON_LOG, e.getMessage());
 			}
 		}
 	}

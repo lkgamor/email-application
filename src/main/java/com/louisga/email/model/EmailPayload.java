@@ -8,16 +8,21 @@ import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
 
+/**
+ * 
+ * @author LouisGa
+ *
+ */
 @Data
 public class EmailPayload {
 	
-	@NotBlank
+	@NotBlank(message="Email subject cannot be empty")
 	private String subject;
 	
 	@NotBlank
 	private String body;
 	private String dateTime;
 	
-	@NotEmpty
+	@NotEmpty(message="Please provide a destination email address")
 	private List<@NotEmpty @Email String> to;
 }

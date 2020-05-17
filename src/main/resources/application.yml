@@ -1,18 +1,22 @@
 server:
   port: 7000
+host:
+  port:
+    tls: 587
+    ssl: 465
 spring:
   mail:
     host: smtp.gmail.com
+    username: <email-address>
     password: <password>
-    username: <email.address>
-    port: 587
+    port: ${host.port.tls}
     sender: <reply-to.email.address>
+    test-connection: true
     properties:
       mail:
         smtp:
           auth: true
           socketFactory:
-            port: 465
+            port: ${host.port.ssl}
             class: javax.net.ssl.SSLSocketFactory
             fallback: false
-    test-connection: true

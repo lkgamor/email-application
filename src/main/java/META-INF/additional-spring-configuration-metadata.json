@@ -1,5 +1,17 @@
-{"properties": [{
-  "name": "spring.mail.sender",
-  "type": "java.lang.String",
-  "description": "A description for 'spring.mail.sender'"
-}]}
+{"properties": [
+  {
+    "name": "spring.mail.sender",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.mail.sender'"
+  },
+  {
+    "name": "host.port.tls",
+    "type": "java.lang.String",
+    "description": "A description for 'host.port.tls'"
+  },
+  {
+    "name": "host.port.ssl",
+    "type": "java.lang.String",
+    "description": "A description for 'host.port.ssl'"
+  }
+]}

@@ -13,7 +13,7 @@ public interface EmailService {
 
 	EmailPayload getEmail(String emailId);
 
-	void processEmail(@Valid EmailPayload payload) throws MessagingException;
+	void processEmail(EmailPayload payload) throws MessagingException;
 
 	void deleteEmail(String emailId);
 }

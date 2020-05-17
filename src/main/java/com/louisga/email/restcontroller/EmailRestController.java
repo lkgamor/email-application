@@ -20,19 +20,20 @@ import com.louisga.email.service.EmailService;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 
+ * @author LouisGa
+ *
+ */
 @RestController
 @RequestMapping("api/v1/emails")
 @RequiredArgsConstructor
 public class EmailRestController {
-
-	/**
-	 * @author LouisGa
-	 */
 	
 	private final EmailService emailService;
 	
 	/**
-	 * GET /api/v1/emails
+	 * GET api/v1/emails retrieve all emails
 	 * @return
 	 */
 	@GetMapping()
@@ -41,8 +42,8 @@ public class EmailRestController {
 	}
 	
 	/**
-	 * GET /api/v1/emails/:id
-	 * @param id email id
+	 * GET api/v1/emails/{id} retrieve a single email
+	 * @param id
 	 * @return
 	 */
 	@GetMapping("/{id}")
@@ -51,8 +52,10 @@ public class EmailRestController {
 	}
 	
 	/**
-	 * POST /api/v1/emails/send
+	 * POST api/v1/email send an email
+	 * @param payload
 	 * @return
+	 * @throws MessagingException
 	 */
 	@PostMapping("/send")
 	public ResponseEntity<EmailPayload> receiveEmailRequest(@Valid @RequestBody EmailPayload payload) throws MessagingException {
@@ -61,8 +64,8 @@ public class EmailRestController {
 	}
 	
 	/**
-	 * DELETE /api/v1/emails/:id
-	 * @param id email id
+	 * DELETE api/v1/emails/{id} remove a single email
+	 * @param id
 	 * @return
 	 */
 	@DeleteMapping("/{id}")
